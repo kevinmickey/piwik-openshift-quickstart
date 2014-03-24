@@ -19,7 +19,7 @@ Make a note of the username, password, and host name as you will need to use the
 
 Add this upstream Piwik quickstart repo
 
-	cd piwik/php
+	cd piwik/
 	rm -rf *
 	git remote add upstream -m master git://github.com/openshift/piwik-openshift-quickstart.git
 	git pull -s recursive -X theirs upstream master
