@@ -1,8 +1,12 @@
-Piwik on OpenShift
+Piwik on OpenShift 
 =========================
-Piwik is a downloadable, open source (GPL licensed) real time web analytics software program. It provides you with detailed reports on your website visitors: the search engines and keywords they used, the language they speak, your popular pages, and so much more.
+Piwik is a downloadable, open source (GPL licensed) real time web analytics software program.
 
-Piwik aims to be an open source alternative to Google Analytics, and is already used on more than 150,000 websites. 
+It provides you with detailed reports on your website visitors: the search engines and keywords they used, the language
+
+ they speak, your popular pages, and so much more. Piwik aims to be an open source alternative to Google Analytics, and
+
+ is already used on more than 1,000,000 websites.
 
 More information can be found on the official Piwik website at http://piwik.org
 
@@ -11,20 +15,22 @@ Running on OpenShift
 
 Create an account at https://www.openshift.com
 
-Create a PHP application
+Install RHC tools at https://www.openshift.com/developers/rhc-client-tools-install
 
-	rhc app create -a piwik -t php-5.3
+Quick Installation:
 
-Add mysql support to your application
-    
-	rhc cartridge add -a piwik -c mysql-5.1
-Make a note of the username, password, and host name as you will need to use these to complete the Piwik installation on OpenShift
+    rhc app create piwik php-5.4 mysql-5.5 --from-code=git://github.com/jnull/piwik-openshift-quickstart.git
+
+Step by Step Installation:
+
+Create a PHP application with MySQL
+
+	rhc app create -a piwik php-5.4 mysql-5.5
 
 Add this upstream Piwik quickstart repo
 
-	cd piwik/php
-	rm -rf *
-	git remote add upstream -m master git://github.com/gshipley/piwik-openshift-quickstart.git
+    cd piwik
+	git remote add upstream -m master git://github.com/jnull/piwik-openshift-quickstart.git
 	git pull -s recursive -X theirs upstream master
 
 Push back to your OpenShift repo
@@ -34,4 +40,3 @@ Push back to your OpenShift repo
 That's it, you can now checkout your application at:
 
 	http://piwik-$yourlogin.rhcloud.com
-

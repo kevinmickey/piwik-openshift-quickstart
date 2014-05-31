@@ -1,5 +1,27 @@
 #!/bin/bash
-# This is a simple build script and will be executed on your CI system if 
-# available.  Otherwise it will execute while your application is stopped
-# before the deploy step.  This script gets executed directly, so it
-# could be python, php, ruby, etc.
+
+# Change to the version number to be installed:
+install_version="2.3.0"
+
+# Set Piwik Temporary directory location as $install_dir
+install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${install_version}
+
+# Create Temporary Piwik install directory
+mkdir -p $install_dir
+
+# Download and Install Piwik
+# change the current working directory to ${install_dir} and download ${install_version}
+pushd ${install_dir} >/dev/null
+curl -O http://builds.piwik.org/piwik-${install_version}.tar.gz
+
+# Extract Piwik to current directory ($install_dir)
+tar --strip-components=1 -xzf piwik-${install_version}.tar.gz
+
+# store version number to a file for later use by "action_hooks/deploy" script
+echo $install_version > ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version
+
+# Clean up
+rm -rf piwik-${install_version}.tar.gz
+
+# We haven't linked the current installation files to "~/app-root/repo/php" - cleaning it out
+rm -rf ${OPENSHIFT_REPO_DIR}php
