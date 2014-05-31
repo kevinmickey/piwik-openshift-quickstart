@@ -15,7 +15,7 @@ Install RHC tools at https://www.openshift.com/developers/rhc-client-tools-insta
 
 Quick Installation:
 
-    rhc app create piwik php-5.4 mysql-5.5 --from-code=git://github.com/jnull/piwik-openshift-quickstart.git
+    rhc app create piwik php-5.4 mysql-5.5 --from-code=git://github.com/openshift/piwik-openshift-quickstart.git
 
 Step by Step Installation:
 
@@ -26,7 +26,7 @@ Create a PHP application with MySQL
 Add this upstream Piwik quickstart repo
     
     cd piwik
-	git remote add upstream -m master git://github.com/jnull/piwik-openshift-quickstart.git
+	git remote add upstream -m master git://github.com/openshift/piwik-openshift-quickstart.git
 	git pull -s recursive -X theirs upstream master
 
 Push back to your OpenShift repo
