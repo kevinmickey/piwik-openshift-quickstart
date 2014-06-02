@@ -19,11 +19,11 @@ if [ ! -d "${dest_dir}" ]; then
   cp -rf ${install_dir}/* ${dest_dir}/
 fi
 
-# Clean the php/ directory where Piwik installation will be linked
+# Remove the "app-root/repo/php" directory where Piwik installation will be linked
 if [ -d ${OPENSHIFT_REPO_DIR}php ]; then
   rm -rf ${OPENSHIFT_REPO_DIR}php
 fi
 
-# Now link the repo to the permanent installation
+# Now link the repo ("app-root/repo/php") to the Permanent installation 
 ln -sf ${dest_dir} ${OPENSHIFT_REPO_DIR}php
 

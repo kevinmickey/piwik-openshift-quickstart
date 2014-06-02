@@ -26,3 +26,6 @@ echo $install_version > ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version
 
 # Clean up
 rm -rf piwik-${install_version}.tar.gz
+
+# We haven't linked the current installation files to "~/app-root/repo/php" - cleaning it out
+rm -rf ${OPENSHIFT_REPO_DIR}php
