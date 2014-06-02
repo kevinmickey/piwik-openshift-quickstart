@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # This deploy hook gets executed after dependencies are resolved and the
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
@@ -14,7 +13,7 @@ install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${current_version}
 # Permanent Piwik install location
 dest_dir=${OPENSHIFT_DATA_DIR}current
 
-//Copy Temporary install to Permanent
+#Copy Temporary install to Permanent
 if [ ! -d "${dest_dir}" ]; then
   mkdir -p $dest_dir
   cp -rf ${install_dir}/* ${dest_dir}/
