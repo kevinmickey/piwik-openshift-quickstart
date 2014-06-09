@@ -3,3 +3,27 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
+
+# Retrieve Piwik version set from the script: "action_hooks/build"
+current_version=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version)
+
+# Temporary Piwik install location
+install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${current_version}
+
+# Permanent Piwik install location
+dest_dir=${OPENSHIFT_DATA_DIR}current
+
+#Copy Temporary install to Permanent
+if [ ! -d "${dest_dir}" ]; then
+  mkdir -p $dest_dir
+  cp -rf ${install_dir}/* ${dest_dir}/
+fi
+
+# Remove the "app-root/repo/php" directory where Piwik installation will be linked
+if [ -d ${OPENSHIFT_REPO_DIR}php ]; then
+  rm -rf ${OPENSHIFT_REPO_DIR}php
+fi
+
+# Now link the repo ("app-root/repo/php") to the Permanent installation 
+ln -sf ${dest_dir} ${OPENSHIFT_REPO_DIR}php
+
