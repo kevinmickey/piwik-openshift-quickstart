@@ -4,8 +4,8 @@
 # before the deploy step. This script gets executed directly, so it
 # could be python, php, ruby, etc.
 
-# Change to the version number to be installed:
-install_version="2.3.0"
+# Always fetch the latest version:
+install_version=$(curl http://builds.piwik.org/LATEST)
 
 # Set Piwik Temporary directory location as $install_dir
 install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${install_version}
