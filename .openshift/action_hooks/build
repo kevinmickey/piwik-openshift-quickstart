@@ -5,7 +5,7 @@
 # could be python, php, ruby, etc.
 
 # Always fetch the latest version:
-install_version=$(curl http://builds.piwik.org/LATEST)
+install_version=$(curl https://builds.piwik.org/LATEST)
 
 # Set Piwik Temporary directory location as $install_dir
 install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${install_version}
@@ -16,7 +16,7 @@ mkdir -p $install_dir
 # Download and Install Piwik
 # change the current working directory to ${install_dir} and download ${install_version}
 pushd ${install_dir} >/dev/null
-curl -O http://builds.piwik.org/piwik-${install_version}.tar.gz
+curl -O https://builds.piwik.org/piwik-${install_version}.tar.gz
 
 # Extract Piwik to current directory ($install_dir)
 tar --strip-components=1 -xzf piwik-${install_version}.tar.gz
