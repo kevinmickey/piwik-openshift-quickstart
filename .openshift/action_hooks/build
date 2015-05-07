@@ -16,16 +16,32 @@ mkdir -p $install_dir
 # Download and Install Piwik
 # change the current working directory to ${install_dir} and download ${install_version}
 pushd ${install_dir} >/dev/null
+# curl -O https://builds.piwik.org/piwik-${install_version}.tar.gz
 curl -O https://builds.piwik.org/piwik-${install_version}.tar.gz
 
+# http://superuser.com/questions/518347/equivalent-to-tars-strip-components-1-in-unzip
+unzip-strip() (
+  local zip=$1
+  local dest=${2:-.}
+  local temp=$(mktemp -d) && unzip -d "$temp" "$zip" && mkdir -p "$dest" &&
+  shopt -s dotglob && local f=("$temp"/*) &&
+  if (( ${#f[@]} == 1 )) && [[ -d "${f[0]}" ]] ; then
+      mv "$temp"/*/* "$dest"
+    else
+      mv "$temp"/* "$dest"
+    fi && rmdir "$temp"/* "$temp"
+)
+
 # Extract Piwik to current directory ($install_dir)
-tar --strip-components=1 -xzf piwik-${install_version}.tar.gz
+#tar --strip-components=1 -xzf piwik-${install_version}.tar.gz
+unzip-strip piwik-${install_version}.zip
 
 # store version number to a file for later use by "action_hooks/deploy" script
 echo $install_version > ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version
 
 # Clean up
-rm -rf piwik-${install_version}.tar.gz
+#rm -rf piwik-${install_version}.tar.gz
+rm -rf piwik-${install_version}.zip
 
 # We haven't linked the current installation files to "~/app-root/repo/php" - cleaning it out
 rm -rf ${OPENSHIFT_REPO_DIR}php
