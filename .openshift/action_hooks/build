@@ -17,7 +17,7 @@ mkdir -p $install_dir
 # change the current working directory to ${install_dir} and download ${install_version}
 pushd ${install_dir} >/dev/null
 # curl -O https://builds.piwik.org/piwik-${install_version}.tar.gz
-curl -O https://builds.piwik.org/piwik-${install_version}.tar.gz
+curl -O https://builds.piwik.org/piwik-${install_version}.zip
 
 # http://superuser.com/questions/518347/equivalent-to-tars-strip-components-1-in-unzip
 unzip-strip() (
